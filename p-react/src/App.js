@@ -1,8 +1,8 @@
 import "./App.css";
 // import CustomHook from "./Tasks/Custom-hook/Custom-hook";
-import WorldMap from "./Tasks/Map/Map";
 import ToastLoading from "./Tasks/toast-loading";
 import UseLayoutEffectComponent from "./Tasks/useLayoutEffect";
+import AppMap from "./Tasks/Map/AppMap";
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
       {/* <ToastLoading /> */}
       {/* <CustomHook /> */}
       {/* <UseLayoutEffectComponent /> */}
-      <WorldMap />
+      <AppMap />
     </>
   );
 }
