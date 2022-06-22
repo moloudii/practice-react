@@ -3,6 +3,7 @@ import "./App.css";
 import ToastLoading from "./Tasks/toast-loading";
 import UseLayoutEffectComponent from "./Tasks/useLayoutEffect";
 import AppMap from "./Tasks/Map/AppMap";
+import AppContext from "./Tasks/Context/AppContext";
 
 function App() {
   return (
@@ -10,7 +11,8 @@ function App() {
       {/* <ToastLoading /> */}
       {/* <CustomHook /> */}
       {/* <UseLayoutEffectComponent /> */}
-      <AppMap />
+      {/* <AppMap /> */}
+      <AppContext />
     </>
   );
 }
