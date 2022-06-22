@@ -4,6 +4,7 @@ import ToastLoading from "./Tasks/toast-loading";
 import UseLayoutEffectComponent from "./Tasks/useLayoutEffect";
 import AppMap from "./Tasks/Map/AppMap";
 import AppContext from "./Tasks/Context/AppContext";
+import AppLogin from "./Login/AppLogin";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       {/* <UseLayoutEffectComponent /> */}
       {/* <AppMap /> */}
       {/* <AppContext /> */}
+      <AppLogin />
     </>
   );
 }
