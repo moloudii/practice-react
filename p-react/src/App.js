@@ -12,7 +12,7 @@ function App() {
       {/* <CustomHook /> */}
       {/* <UseLayoutEffectComponent /> */}
       {/* <AppMap /> */}
-      <AppContext />
+      {/* <AppContext /> */}
     </>
   );
 }
