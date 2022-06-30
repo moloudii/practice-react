@@ -7,6 +7,7 @@ import AppContext from "./Tasks/Context/AppContext";
 import AppLogin from "./Tasks/Login/AppLogin";
 // for Login Task
 import { AuthProvider } from "./Tasks/Login/Context";
+import AppAxios from "./Tasks/Axios-service/AppAxios";
 
 function App() {
   return (
@@ -16,9 +17,10 @@ function App() {
       {/* <UseLayoutEffectComponent /> */}
       {/* <AppMap /> */}
       {/* <AppContext /> */}
-      <AuthProvider>
+      {/* <AuthProvider>
         <AppLogin />
-      </AuthProvider>
+      </AuthProvider> */}
+      <AppAxios />
     </>
   );
 }
