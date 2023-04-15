@@ -17,10 +17,10 @@ function App() {
       {/* <UseLayoutEffectComponent /> */}
       {/* <AppMap /> */}
       {/* <AppContext /> */}
-      {/* <AuthProvider>
+      <AuthProvider>
         <AppLogin />
-      </AuthProvider> */}
-      <AppAxios />
+      </AuthProvider>
+      {/* <AppAxios /> */}
     </>
   );
 }
