@@ -10,10 +10,12 @@ import { AuthProvider } from "./Tasks/Login/Context";
 import AppAxios from "./Tasks/Axios-service/AppAxios";
 import { Link, Route, Routes } from "react-router-dom";
 import Post from "./Tasks/post";
+import LogViewPage from "./components/logViewPage";
 
 function App() {
   return (
     <>
+      <LogViewPage />
       <ul>
         <li>
           <Link to="/">Home Page</Link>
@@ -30,9 +32,6 @@ function App() {
         <li>
           <Link to="/posts/sample-post">Sample Post</Link>
         </li>
-        <li>
-          <Link to="/posts/sample-post/29">Sample Post 2</Link>
-        </li>
       </ul>
       <Routes>
         {/* Element attribute */}
@@ -47,7 +46,7 @@ function App() {
         />
         <Route path="/toast" element={<ToastLoading />} />
         <Route path="/app-map" element={<AppMap />} />
-        <Route path="/posts/:slug/:id" element={<Post />} />
+        <Route path="/posts/:slug" element={<Post />} />
         {/* Component attribute */}
         <Route path="/app-context" Component={AppContext} />
       </Routes>
