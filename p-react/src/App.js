@@ -8,21 +8,39 @@ import AppLogin from "./Tasks/Login/AppLogin";
 // for Login Task
 import { AuthProvider } from "./Tasks/Login/Context";
 import AppAxios from "./Tasks/Axios-service/AppAxios";
+import { Link, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
     <>
-      {/* <ToastLoading /> */}
-      {/* <CustomHook /> */}
-      {/* <UseLayoutEffectComponent /> */}
-      {/* <AppMap /> */}
-      {/* <AppContext /> */}
-      <AuthProvider>
-        <AppLogin />
-      </AuthProvider>
-      {/* <AppAxios /> */}
+      <ul>
+        <li>
+          <Link to="/">Home Page</Link>
+        </li>
+        <li>
+          <Link to="Toast">Toast</Link>
+        </li>
+      </ul>
+      <Routes>
+        <Route
+          exact
+          path="/"
+          element={
+            <AuthProvider>
+              <AppLogin />
+            </AuthProvider>
+          }
+        />
+        <Route path="/toast" element={<ToastLoading />} />
+      </Routes>
     </>
   );
 }
 
 export default App;
+
+/* <CustomHook /> */
+/* <UseLayoutEffectComponent /> */
+/* <AppMap /> */
+/* <AppContext /> */
+/* <AppAxios /> */
