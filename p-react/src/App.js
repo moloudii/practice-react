@@ -18,10 +18,17 @@ function App() {
           <Link to="/">Home Page</Link>
         </li>
         <li>
-          <Link to="Toast">Toast</Link>
+          <Link to="/Toast">Toast</Link>
+        </li>
+        <li>
+          <Link to="/app-context">App Context</Link>
+        </li>
+        <li>
+          <Link to="/app-map">App Map</Link>
         </li>
       </ul>
       <Routes>
+        {/* Element attribute */}
         <Route
           exact
           path="/"
@@ -32,6 +39,9 @@ function App() {
           }
         />
         <Route path="/toast" element={<ToastLoading />} />
+        <Route path="/app-map" element={<AppMap />} />
+        {/* Component attribute */}
+        <Route path="/app-context" Component={AppContext} />
       </Routes>
     </>
   );
