@@ -8,21 +8,56 @@ import AppLogin from "./Tasks/Login/AppLogin";
 // for Login Task
 import { AuthProvider } from "./Tasks/Login/Context";
 import AppAxios from "./Tasks/Axios-service/AppAxios";
+import { Link, Route, Routes } from "react-router-dom";
+import Post from "./Tasks/post";
+import LogViewPage from "./components/logViewPage";
 
 function App() {
   return (
     <>
-      {/* <ToastLoading /> */}
-      {/* <CustomHook /> */}
-      {/* <UseLayoutEffectComponent /> */}
-      {/* <AppMap /> */}
-      {/* <AppContext /> */}
-      {/* <AuthProvider>
-        <AppLogin />
-      </AuthProvider> */}
-      <AppAxios />
+      <LogViewPage />
+      <ul>
+        <li>
+          <Link to="/">Home Page</Link>
+        </li>
+        <li>
+          <Link to="/Toast">Toast</Link>
+        </li>
+        <li>
+          <Link to="/app-context">App Context</Link>
+        </li>
+        <li>
+          <Link to="/app-map">App Map</Link>
+        </li>
+        <li>
+          <Link to="/posts/sample-post">Sample Post</Link>
+        </li>
+      </ul>
+      <Routes>
+        {/* Element attribute */}
+        <Route
+          exact
+          path="/"
+          element={
+            <AuthProvider>
+              <AppLogin />
+            </AuthProvider>
+          }
+        />
+        <Route path="/toast" element={<ToastLoading />} />
+        <Route path="/app-map" element={<AppMap />} />
+        <Route path="/posts/:slug" element={<Post />} />
+        {/* Component attribute */}
+        <Route path="/app-context" Component={AppContext} />
+      </Routes>
     </>
   );
 }
 
 export default App;
+
+/* <CustomHook /> */
+/* <UseLayoutEffectComponent /> */
+/* <AppMap /> */
+/* <AppContext /> */
+/* <AppAxios /> */
