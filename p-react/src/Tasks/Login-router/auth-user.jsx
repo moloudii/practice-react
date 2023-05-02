@@ -4,7 +4,7 @@ import { getUser } from "./userApi";
 const UserContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState({
+  const [state, setUser] = useState({
     status: "success",
     error: null,
     user: null,
@@ -17,11 +17,11 @@ export function AuthProvider({ children }) {
       user: null,
     });
 
-    getUser().then((user) =>
+    getUser(username, password).then((user) =>
       setUser({
-        status: "pending",
+        status: "success",
         error: null,
-        user: null,
+        user: user,
       })
     );
   }
@@ -34,7 +34,7 @@ export function AuthProvider({ children }) {
   }
   return (
     <UserContext.Provider
-      value={{ ...user, signInWithEmailAndPassword, logOut }}
+      value={{ ...state, signInWithEmailAndPassword, logOut }}
     >
       {children}
     </UserContext.Provider>
