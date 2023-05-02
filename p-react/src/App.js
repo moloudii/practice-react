@@ -11,8 +11,13 @@ import AppAxios from "./Tasks/Axios-service/AppAxios";
 import { Link, Route, Routes } from "react-router-dom";
 import Post from "./Tasks/post";
 import LogViewPage from "./components/logViewPage";
+import { useAuth } from "./Tasks/Login-router/auth-user";
+import PrivateRoute from "./Tasks/Login-router/private-route";
+import LoginRouter from "./Tasks/Login-router/login-router";
 
 function App() {
+  const auth = useAuth();
+  console.log(auth);
   return (
     <>
       <LogViewPage />
@@ -46,7 +51,13 @@ function App() {
         />
         <Route path="/toast" element={<ToastLoading />} />
         <Route path="/app-map" element={<AppMap />} />
-        <Route path="/posts/:slug" element={<Post />} />
+        {/* <Route path="/posts/:slug" element={<Post />} /> */}
+        {/* Private Route */}
+        <Route path="/posts/:slug" element={<PrivateRoute />}>
+          <Route path="/posts/:slug" element={<Post />} />
+        </Route>
+        <Route path="/login" element={<LoginRouter />} />
+
         {/* Component attribute */}
         <Route path="/app-context" Component={AppContext} />
       </Routes>
