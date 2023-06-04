@@ -1,12 +1,20 @@
 const createStore = (reducer) => {
   let state;
-
+  let listeners = [];
   dispatch = (action) => {
     state = reducer(state, action);
+    listeners.forEach((listener) => listener());
   };
+  const subscribe = (listener) => {
+    listeners.push(listener);
+    return () => {
+      listeners = listeners.filter((l) => l !== listener);
+    };
+  };
+
   dispatch({});
   const getState = () => state;
-  return { dispatch, getState };
+  return { dispatch, getState, subscribe };
 };
 
 function counter(state = 0, action) {
@@ -21,8 +29,10 @@ function counter(state = 0, action) {
 }
 
 const store = createStore(counter);
-console.log(store.getState());
-store.dispatch({ type: "INCREMENT" });
-store.dispatch({ type: "INCREMENT" });
 
-console.log(store.getState());
+const unSubscribe = store.subscribe(() => console.log(store.getState()));
+store.dispatch({ type: "INCREMENT" });
+store.dispatch({ type: "INCREMENT" });
+store.dispatch({ type: "INCREMENT" });
+unSubscribe();
+store.dispatch({ type: "DECREMENT" });
