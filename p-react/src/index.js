@@ -7,6 +7,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./Tasks/Login-router/auth-user";
 import { createStore } from "redux";
+// import { Provider } from "./store-provider";
+import { Provider } from "react-redux";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const initState = [
   {
@@ -22,7 +24,7 @@ const initState = [
   {
     id: 3,
     text: "Task 3",
-    completed: false,
+    completed: true,
   },
 ];
 const todos = (state = initState, action) => {
@@ -50,14 +52,30 @@ const todos = (state = initState, action) => {
       return state;
   }
 };
-const store = createStore(todos);
+const visibilityFilter = (state = "SHOW_ALL", action) => {
+  switch (action.type) {
+    case "SET_VISIBILITY_FILTER":
+      return action.filter;
+    default:
+      return state;
+  }
+};
+const todoApp = (state = {}, action) => {
+  return {
+    todos: todos(state.todos, action),
+    visibilityFilter: visibilityFilter(state.visibilityFilter, action),
+  };
+};
+const store = createStore(todoApp);
 console.log(store);
 root.render(
   <BrowserRouter>
     {/* LOGIN WITH ROUTER */}
     <AuthProvider>
       <React.StrictMode>
-        <App store={store} />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </React.StrictMode>
     </AuthProvider>
   </BrowserRouter>

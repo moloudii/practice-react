@@ -18,7 +18,6 @@ import ToDos from "./Tasks/redux/todo";
 
 function App({ store }) {
   const auth = useAuth();
-  console.log(auth);
   return (
     <>
       <LogViewPage />
