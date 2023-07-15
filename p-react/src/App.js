@@ -14,10 +14,10 @@ import LogViewPage from "./components/logViewPage";
 import { useAuth } from "./Tasks/Login-router/auth-user";
 import PrivateRoute from "./Tasks/Login-router/private-route";
 import LoginRouter from "./Tasks/Login-router/login-router";
+import ToDos from "./Tasks/redux/todo";
 
-function App() {
+function App({ store }) {
   const auth = useAuth();
-  console.log(auth);
   return (
     <>
       <LogViewPage />
@@ -37,6 +37,9 @@ function App() {
         <li>
           <Link to="/posts/sample-post">Sample Post</Link>
         </li>
+        <li>
+          <Link to="/redux-test">Redux</Link>
+        </li>
       </ul>
       <Routes>
         {/* Element attribute */}
@@ -51,6 +54,7 @@ function App() {
         />
         <Route path="/toast" element={<ToastLoading />} />
         <Route path="/app-map" element={<AppMap />} />
+        <Route path="/redux-test" element={<ToDos store={store} />} />
         {/* <Route path="/posts/:slug" element={<Post />} /> */}
         {/* Private Route */}
         <Route path="/posts/:slug" element={<PrivateRoute />}>
