@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./Tasks/Login-router/auth-user";
-import { createStore } from "redux";
+import { createStore, combineReducers } from "redux";
 // import { Provider } from "./store-provider";
 import { Provider } from "react-redux";
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -60,13 +60,25 @@ const visibilityFilter = (state = "SHOW_ALL", action) => {
       return state;
   }
 };
-const todoApp = (state = {}, action) => {
-  return {
-    todos: todos(state.todos, action),
-    visibilityFilter: visibilityFilter(state.visibilityFilter, action),
-  };
+// const combineReducers = (reducers) => {
+//   return (state = {}, action) => {
+//     return Object.keys(reducers).reduce((nextState, key) => {
+//       nextState[key] = reducers[key](state[key], action);
+//       return nextState;
+//     }, {});
+//   };
+// };
+const reducers = {
+  todos,
+  visibilityFilter,
 };
-const store = createStore(todoApp);
+// const todoApp = (state = {}, action) => {
+//   return {
+//     todos: todos(state.todos, action),
+//     visibilityFilter: visibilityFilter(state.visibilityFilter, action),
+//   };
+// };
+const store = createStore(combineReducers(reducers));
 console.log(store);
 root.render(
   <BrowserRouter>
