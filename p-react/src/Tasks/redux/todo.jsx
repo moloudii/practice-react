@@ -15,7 +15,7 @@ const getVisibilityTodos = (todos, filter) => {
   }
 };
 // import { createStore } from "redux";
-export default function ToDos({ store }) {
+export default function ToDos() {
   // const [, forceUpdate] = useState(0);
   // useEffect(() => {
   //   const unSubScribe = store.subscribe(() => forceUpdate((c) => c + 1));

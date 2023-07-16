@@ -15,6 +15,7 @@ import { useAuth } from "./Tasks/Login-router/auth-user";
 import PrivateRoute from "./Tasks/Login-router/private-route";
 import LoginRouter from "./Tasks/Login-router/login-router";
 import ToDos from "./Tasks/redux/todo";
+import TodoApp from "./Tasks/Todo-list";
 
 function App({ store }) {
   const auth = useAuth();
@@ -40,6 +41,9 @@ function App({ store }) {
         <li>
           <Link to="/redux-test">Redux</Link>
         </li>
+        <li>
+          <Link to="/todo-list">Todo-List</Link>
+        </li>
       </ul>
       <Routes>
         {/* Element attribute */}
@@ -54,7 +58,8 @@ function App({ store }) {
         />
         <Route path="/toast" element={<ToastLoading />} />
         <Route path="/app-map" element={<AppMap />} />
-        <Route path="/redux-test" element={<ToDos store={store} />} />
+        <Route path="/redux-test" element={<ToDos />} />
+        <Route path="/todo-list" element={<TodoApp />} />
         {/* <Route path="/posts/:slug" element={<Post />} /> */}
         {/* Private Route */}
         <Route path="/posts/:slug" element={<PrivateRoute />}>
