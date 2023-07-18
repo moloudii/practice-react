@@ -1,17 +1,25 @@
-const StatusFilters = {
-  All: "all",
-  Active: "active",
-  Completed: "completed",
-};
+import { useDispatch, useSelector } from "react-redux";
+import {
+  StatusFilters,
+  changedStatusFilter,
+  selectStatusFilter,
+} from "../filter/filterSlice";
 
-const StatusFilter = ({ value: status }) => {
+const StatusFilter = () => {
+  const status = useSelector(selectStatusFilter);
+  const dispatch = useDispatch();
+  function handleChangeStatus(status) {
+    dispatch(changedStatusFilter(status));
+  }
   const renderedFilters = Object.keys(StatusFilters).map((key) => {
     const value = StatusFilters[key];
     const className = value === status ? "selected" : "";
 
     return (
       <li key={value}>
-        <button className={className}>{key}</button>
+        <button className={className} onClick={() => handleChangeStatus(value)}>
+          {key}
+        </button>
       </li>
     );
   });
