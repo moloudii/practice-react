@@ -1,3 +1,6 @@
+/* eslint-disable default-case */
+import { produce } from "immer";
+
 export const StatusFilters = {
   All: "all",
   Active: "active",
@@ -7,29 +10,25 @@ const initState = {
   status: StatusFilters.Active,
   colors: [],
 };
-
-export default function filterReducer(state = initState, action) {
+const filterReducer = produce((state, action) => {
   switch (action.type) {
     case "filters/changedStatusFilter":
-      return { ...state, status: action.payload };
+      state.status = action.payload;
+      break;
     case "filters/changedColorFilter":
       const { colors } = state;
       const { color, changeType } = action.payload;
       switch (changeType) {
         case "added":
-          if (colors.includes(color)) {
-            return state;
-          }
-          return { ...state, colors: [...colors, color] };
+          state.colors.push(color);
+          break;
         case "removed":
-          return { ...state, colors: colors.filter((c) => c !== color) };
-        default:
-          return state;
+          state.colors = colors.filter((c) => c !== color);
       }
-    default:
-      return state;
   }
-}
+}, initState);
+export default filterReducer;
+
 export const selectStatusFilter = (state) => state.filterReducer.status;
 export const selectColorsFilter = (state) => state.filterReducer.colors;
 
