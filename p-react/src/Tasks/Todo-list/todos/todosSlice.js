@@ -1,3 +1,5 @@
+import { produce } from "immer";
+
 const initState = {
   entities: {
     1: { id: 1, text: "design ui", completed: true, color: "red " },
@@ -7,39 +9,25 @@ const initState = {
     5: { id: 5, text: "completed patterns", completed: false, color: "red" },
   },
 };
-export function todoReducer(state = initState, action) {
+export const todoReducer = produce((state, action) => {
+  // eslint-disable-next-line default-case
   switch (action.type) {
     case "todos/todoAdded":
       const todo = action.payload;
-      return {
-        ...state,
-        entities: { ...state.entities, [todo.id]: todo },
-      };
+      state.entities[todo.id] = todo;
+      break;
     case "todos/todoToggled":
       const todoToggledId = action.payload;
-      const todoToggled = state.entities[todoToggledId];
-      return {
-        ...state,
-        entities: {
-          ...state.entities,
-          [todoToggledId]: {
-            ...todoToggled,
-            completed: !todoToggled.completed,
-          },
-        },
-      };
+      state.entities[todoToggledId].completed =
+        !state.entities[todoToggledId].completed;
+      break;
     case "todos/todoDeleted":
       const deletedTodoId = action.payload;
-      const entities = { ...state.entities };
-      delete entities[deletedTodoId];
-      return {
-        ...state,
-        entities,
-      };
-    default:
-      return state;
+      delete state.entities[deletedTodoId];
+      break;
   }
-}
+}, initState);
+
 export const todoAdded = (text) => ({
   type: "todos/todoAdded",
   payload: {
@@ -57,7 +45,8 @@ export const todoDeleted = (todoId) => ({
   payload: todoId,
 });
 export const selectTodos = (state) => state.todoReducer.entities;
-export const selectTodosIds = (state) => Object.keys(state.todoReducer.entities);
+export const selectTodosIds = (state) =>
+  Object.keys(state.todoReducer.entities);
 
 //Todo project for pure redux
 const initStateTodo = [
