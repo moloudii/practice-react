@@ -1,4 +1,5 @@
 import { produce } from "immer";
+import { StatusFilters } from "../filter/filterSlice";
 
 const initState = {
   entities: {
@@ -47,6 +48,27 @@ export const todoDeleted = (todoId) => ({
 export const selectTodos = (state) => state.todoReducer.entities;
 export const selectTodosIds = (state) =>
   Object.keys(state.todoReducer.entities);
+
+const selectFilteredTodos = (state) => {
+  const todos = Object.values(selectTodos(state));
+  const { status, colors } = state.filterReducer;
+  const showAll = status === StatusFilters.All;
+  if (showAll && colors.length === 0) {
+    return todos;
+  }
+  const showCompleted = status === StatusFilters.Completed;
+  return todos.filter((todo) => {
+    const statusFilter = showAll || todo.completed === showCompleted;
+    const colorsFilter = colors.length === 0 || colors.includes(todo.color);
+    return statusFilter && colorsFilter;
+  });
+};
+
+export const selectFiltertodoIds = (state) => {
+  const filteredTodos = selectFilteredTodos(state);
+  console.log(selectFilteredTodos(state));
+  return filteredTodos.map((todo) => todo.id);
+};
 
 //Todo project for pure redux
 const initStateTodo = [
