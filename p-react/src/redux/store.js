@@ -1,4 +1,4 @@
-import { compose, createStore } from "redux";
+import { compose, createStore, applyMiddleware } from "redux";
 import rootReducers from "./reducer";
 import { composeWithDevTools } from "@redux-devtools/extension";
 import { logActions, logState } from "../addons/enhancers";
@@ -17,8 +17,32 @@ const preloadedState = {
     },
   },
 };
+const print1 = (storeApi) => (next) => (action) => {
+  console.log("Action:", action);
+  next(action);
+  console.log("new State :", storeApi.getState());
+};
+function print2(storeApi) {
+  return function wrapDispatch(next) {
+    return function handleAction(action) {
+      console.log(2);
+      return next(action);
+    };
+  };
+}
+function print3(storeApi) {
+  return function wrapDispatch(next) {
+    return function handleAction(action) {
+      console.log(3);
+      return next(action);
+    };
+  };
+}
 
-const enhancers = compose(logActions, logState);
-const store = createStore(rootReducers, preloadedState, enhancers);
+const store = createStore(
+  rootReducers,
+  preloadedState,
+  applyMiddleware(print1, print2, print3)
+);
 
 export default store;
