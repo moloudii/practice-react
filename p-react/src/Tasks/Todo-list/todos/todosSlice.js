@@ -27,6 +27,19 @@ export const todoReducer = produce((state, action) => {
       const deletedTodoId = action.payload;
       delete state.entities[deletedTodoId];
       break;
+    case "todos/markAllCompleted":
+      console.log(Object.values(state.entities));
+      Object.values(state.entities).forEach(
+        (todo) => (state.entities[todo.id].completed = true)
+      );
+      break;
+    case "todos/clearCompleted":
+      Object.values(state.entities).forEach((todo) => {
+        if (todo.completed) {
+          delete state.entities[todo.id];
+        }
+      });
+      break;
   }
 }, initState);
 
@@ -76,6 +89,13 @@ export const selectFiltertodoIds = createSelector(
   selectFilteredTodos,
   (filteredTodos) => filteredTodos.map((todo) => todo.id)
 );
+
+export const markAllCompleted = () => ({
+  type: "todos/markAllCompleted",
+});
+export const clearCompleted = () => ({
+  type: "todos/clearCompleted",
+});
 
 //Todo project for pure redux
 const initStateTodo = [
