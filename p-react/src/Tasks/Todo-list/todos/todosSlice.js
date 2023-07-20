@@ -51,7 +51,7 @@ export const selectTodosIds = (state) =>
   Object.keys(state.todoReducer.entities);
 export const selectTodoEntities = (state) => state.todoReducer.entities;
 
-const selectTodos = createSelector(selectTodoEntities, (todoEntities) =>
+export const selectTodos = createSelector(selectTodoEntities, (todoEntities) =>
   Object.values(todoEntities)
 );
 const selectFilteredTodos = createSelector(
@@ -76,11 +76,6 @@ export const selectFiltertodoIds = createSelector(
   selectFilteredTodos,
   (filteredTodos) => filteredTodos.map((todo) => todo.id)
 );
-
-// export const selectFiltertodoIds = (state) => {
-//   const filteredTodos = selectFilteredTodos(state);
-//   return filteredTodos.map((todo) => todo.id);
-// };
 
 //Todo project for pure redux
 const initStateTodo = [

@@ -1,4 +1,11 @@
-const RemainingTodos = ({ count }) => {
+import { useSelector } from "react-redux";
+import { selectTodos } from "../todos/todosSlice";
+
+const RemainingTodos = () => {
+  const count = useSelector((state) => {
+    const todos = selectTodos(state).filter((todo) => !todo.completed);
+    return todos.length;
+  });
   const suffix = count === 1 ? "" : "s";
 
   return (

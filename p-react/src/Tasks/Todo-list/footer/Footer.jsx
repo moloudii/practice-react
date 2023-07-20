@@ -11,7 +11,7 @@ export default function Footer() {
         <button className="button">Clear Completed</button>
       </div>
 
-      <RemainingTodos count={1} />
+      <RemainingTodos />
       <StatusFilter />
       <ColorFilters />
     </footer>
