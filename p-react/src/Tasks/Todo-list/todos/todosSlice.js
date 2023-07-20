@@ -40,6 +40,10 @@ export const todoReducer = produce((state, action) => {
         }
       });
       break;
+    case "todos/colorChanged":
+      const { id, color } = action.payload;
+      state.entities[id].color = color;
+      break;
   }
 }, initState);
 
@@ -58,6 +62,13 @@ export const todoToggled = (todoId) => ({
 export const todoDeleted = (todoId) => ({
   type: "todos/todoDeleted",
   payload: todoId,
+});
+export const colorChanged = (todoId, color) => ({
+  type: "todos/colorChanged",
+  payload: {
+    id: todoId,
+    color,
+  },
 });
 
 export const selectTodosIds = (state) =>

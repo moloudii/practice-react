@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { ReactComponent as TimesSolid } from "./times-solid.svg";
-import { todoDeleted, todoToggled } from "./todosSlice";
+import { colorChanged, todoDeleted, todoToggled } from "./todosSlice";
 
 export const availableColors = ["green", "blue", "orange", "purple", "red"];
 export const capitalize = (s) => s[0].toUpperCase() + s.slice(1);
@@ -21,6 +21,9 @@ const TodoListItem = ({ id }) => {
   function handleDelete() {
     dispatch(todoDeleted(todo.id));
   }
+  const handleChangeColor = (event) => {
+    dispatch(colorChanged(todo.id, event.target.value));
+  };
   return (
     <li>
       <div className="view">
@@ -38,6 +41,7 @@ const TodoListItem = ({ id }) => {
             className="colorPicker"
             defaultValue={color}
             style={{ color }}
+            onChange={handleChangeColor}
           >
             <option value=""></option>
             {colorOptions}
