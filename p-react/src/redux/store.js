@@ -1,48 +1,26 @@
 import { compose, createStore, applyMiddleware } from "redux";
 import rootReducers from "./reducer";
 import { composeWithDevTools } from "@redux-devtools/extension";
-import { logActions, logState } from "../addons/enhancers";
 
-// const composedEnhancer = composeWithDevTools();
+// const fetchTodosMiddleware = (storeApi) => (next) => (action) => {
+//   if (action.type === "todos/fetchTodos") {
+//     client.get("todoReducer").then((todos) => {
+//       storeApi.dispatch({ type: "todos/todosLoaded", payload: todos });
+//     });
+//   }
+//   next(action);
+// };
 
-// const store = createStore(rootReducers, composedEnhancer);
-const preloadedState = {
-  todoReducer: {
-    entities: {
-      1: { id: 1, text: "design ui", completed: true, color: "red " },
-      2: { id: 2, text: "discover state", completed: false },
-      3: { id: 3, text: "discover actions", completed: false },
-      4: { id: 4, text: "implement reducer", completed: false, color: "blue" },
-      5: { id: 5, text: "completed patterns", completed: false, color: "red" },
-    },
-  },
+const asyncFunctionMiddleware = (storeApi) => (next) => (action) => {
+  if (typeof action === "function") {
+    return action(storeApi.dispatch, storeApi.getState);
+  }
+  return next(action);
 };
-const print1 = (storeApi) => (next) => (action) => {
-  console.log("Action:", action);
-  next(action);
-  console.log("new State :", storeApi.getState());
-};
-function print2(storeApi) {
-  return function wrapDispatch(next) {
-    return function handleAction(action) {
-      console.log(2);
-      return next(action);
-    };
-  };
-}
-function print3(storeApi) {
-  return function wrapDispatch(next) {
-    return function handleAction(action) {
-      console.log(3);
-      return next(action);
-    };
-  };
-}
-
-const store = createStore(
-  rootReducers,
-  preloadedState,
-  applyMiddleware(print1, print2, print3)
+const composedEnhancer = composeWithDevTools(
+  applyMiddleware(asyncFunctionMiddleware)
 );
+
+const store = createStore(rootReducers, composedEnhancer);
 
 export default store;

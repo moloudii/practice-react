@@ -44,6 +44,13 @@ export const todoReducer = produce((state, action) => {
       const { id, color } = action.payload;
       state.entities[id].color = color;
       break;
+    case "todos/todosLoaded":
+      const todos = action.payload;
+      const newEntities = {};
+      todos.forEach((todo) => {
+        newEntities[todo.id] = todo;
+      });
+      state.entities = newEntities;
   }
 }, initState);
 

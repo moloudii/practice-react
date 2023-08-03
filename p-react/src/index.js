@@ -10,6 +10,8 @@ import { AuthProvider } from "./Tasks/Login-router/auth-user";
 // import { Provider } from "./store-provider";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import { client } from "./api/client";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 // const initState = [
 //   {
@@ -80,7 +82,12 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 //   };
 // };
 // const store = createStore(combineReducers(reducers));
-console.log(store);
+const fetchTodos = (dispatch, getState) => {
+  client.get("todoReducer").then((todos) => {
+    dispatch({ type: "todos/todosLoaded", payload: todos });
+  });
+};
+store.dispatch(fetchTodos);
 root.render(
   <BrowserRouter>
     {/* LOGIN WITH ROUTER */}
