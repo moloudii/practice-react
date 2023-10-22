@@ -1,15 +1,11 @@
 import { produce } from "immer";
 import { createSelector } from "reselect";
 import { StatusFilters } from "../filter/filterSlice";
+import { client } from "../../../api/client";
 
 const initState = {
-  entities: {
-    // 1: { id: 1, text: "design ui", completed: true, color: "red " },
-    // 2: { id: 2, text: "discover state", completed: false },
-    // 3: { id: 3, text: "discover actions", completed: false },
-    // 4: { id: 4, text: "implement reducer", completed: false, color: "blue" },
-    // 5: { id: 5, text: "completed patterns", completed: false, color: "red" },
-  },
+  status: "idle",
+  entities: {},
 };
 export const todoReducer = produce((state, action) => {
   // eslint-disable-next-line default-case
@@ -44,6 +40,9 @@ export const todoReducer = produce((state, action) => {
       const { id, color } = action.payload;
       state.entities[id].color = color;
       break;
+    case "todos/todosLoading":
+      state.status = "loading";
+      break;
     case "todos/todosLoaded":
       const todos = action.payload;
       const newEntities = {};
@@ -51,16 +50,13 @@ export const todoReducer = produce((state, action) => {
         newEntities[todo.id] = todo;
       });
       state.entities = newEntities;
+      state.status = "idle";
   }
 }, initState);
 
-export const todoAdded = (text) => ({
+export const todoAdded = (todo) => ({
   type: "todos/todoAdded",
-  payload: {
-    id: 6,
-    text: text,
-    completed: false,
-  },
+  payload: todo,
 });
 export const todoToggled = (todoId) => ({
   type: "todos/todoToggled",
@@ -77,7 +73,23 @@ export const colorChanged = (todoId, color) => ({
     color,
   },
 });
+const todosLoaded = (todos) => ({ type: "todos/todosLoaded", payload: todos });
+export const fetchTodos = (dispatch, getState) => {
+  dispatch({ type: "todos/todosLoading" });
+  client.get("todoReducer").then((todos) => dispatch(todosLoaded(todos)));
+};
 
+// thunk function
+export const saveNewTodo = (text) => {
+  return async function saveNewTodoThunk(dispatch) {
+    const initTodo = {
+      text,
+      completed: false,
+    };
+    const todo = await client.post("todoReducer", initTodo);
+    dispatch(todoAdded(todo));
+  };
+};
 export const selectTodosIds = (state) =>
   Object.keys(state.todoReducer.entities);
 export const selectTodoEntities = (state) => state.todoReducer.entities;

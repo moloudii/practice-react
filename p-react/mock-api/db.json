@@ -27,6 +27,41 @@
       "text": "completed patterns",
       "completed": false,
       "color": "red"
+    },
+    {
+      "text": "da",
+      "completed": false,
+      "id": 6
+    },
+    {
+      "text": "dewedwd",
+      "completed": false,
+      "id": 7
+    },
+    {
+      "text": "ds",
+      "completed": false,
+      "id": 8
+    },
+    {
+      "text": "s",
+      "completed": false,
+      "id": 9
+    },
+    {
+      "text": "test",
+      "completed": false,
+      "id": 10
+    },
+    {
+      "text": "boo",
+      "completed": false,
+      "id": 11
+    },
+    {
+      "text": "a",
+      "completed": false,
+      "id": 12
     }
   ]
 }
