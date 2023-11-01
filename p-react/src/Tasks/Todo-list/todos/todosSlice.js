@@ -1,4 +1,4 @@
-import { createAction, nanoid } from "@reduxjs/toolkit";
+import { createAction, nanoid, createReducer } from "@reduxjs/toolkit";
 import { produce } from "immer";
 import { createSelector } from "reselect";
 import { StatusFilters } from "../filter/filterSlice";
@@ -8,6 +8,20 @@ const initState = {
   status: "idle",
   entities: {},
 };
+// const todoAdded1 = createAction("todos/todoAdded");
+// const todoToggled1 = createAction("todos/todoToggled");
+// const todoReducer1 = createReducer(initState, (builder) => {
+//   builder
+//     .addCase(todoAdded1, (state, action) => {
+//       const todo = action.payload;
+//       state.entities[todo.id] = todo;
+//     })
+//     .addCase(todoToggled1, (state, action) => {
+//       const todoToggledId = action.payload;
+//       state.entities[todoToggledId].completed =
+//         !state.entities[todoToggledId].completed;
+//     });
+// });
 export const todoReducer = produce((state, action) => {
   // eslint-disable-next-line default-case
   switch (action.type) {
