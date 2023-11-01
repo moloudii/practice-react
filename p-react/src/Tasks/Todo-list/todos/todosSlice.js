@@ -1,3 +1,4 @@
+import { createAction, nanoid } from "@reduxjs/toolkit";
 import { produce } from "immer";
 import { createSelector } from "reselect";
 import { StatusFilters } from "../filter/filterSlice";
@@ -54,9 +55,18 @@ export const todoReducer = produce((state, action) => {
   }
 }, initState);
 
-export const todoAdded = (todo) => ({
-  type: "todos/todoAdded",
-  payload: todo,
+// export const todoAdded = (todo) => ({
+//   type: "todos/todoAdded",
+//   payload: todo,
+// });
+export const todoAdded = createAction("todos/todoAdded", (text) => {
+  return {
+    payload: {
+      id: nanoid(),
+      text,
+      date: new Date().toISOString(),
+    },
+  };
 });
 export const todoToggled = (todoId) => ({
   type: "todos/todoToggled",

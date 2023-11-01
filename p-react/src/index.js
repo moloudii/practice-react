@@ -10,11 +10,13 @@ import { AuthProvider } from "./Tasks/Login-router/auth-user";
 // import { Provider } from "./store-provider";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import { fetchTodos } from "./Tasks/Todo-list/todos/todosSlice";
+import { fetchTodos, todoAdded } from "./Tasks/Todo-list/todos/todosSlice";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 store.dispatch(fetchTodos);
+console.log(todoAdded("foo"));
+console.log(todoAdded.match(todoAdded("foo")));
 root.render(
   <BrowserRouter>
     {/* LOGIN WITH ROUTER */}

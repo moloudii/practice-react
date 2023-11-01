@@ -1,4 +1,4 @@
-import { combineReducers } from "redux";
+// import { combineReducers } from "redux";
 import {
   todoReducer,
   todos,
@@ -6,10 +6,10 @@ import {
 } from "../Tasks/Todo-list/todos/todosSlice";
 import filterReducer from "../Tasks/Todo-list/filter/filterSlice";
 
-const rootReducers = combineReducers({
+const rootReducers = {
   todoReducer,
   filterReducer,
   todos,
   visibilityFilter,
-});
+};
 export default rootReducers;
